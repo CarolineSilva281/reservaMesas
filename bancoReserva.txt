@@ -1,0 +1,33 @@
+
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE
+);
+ 
+
+CREATE TABLE mesas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nomeMesa VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    disponibilidade BOOLEAN DEFAULT TRUE
+);
+ 
+
+CREATE TABLE historico_reservas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT,
+    mesa_id INT,
+    data_reserva DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('ativa','cancelada') NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (mesa_id) REFERENCES mesas(id)
+);
+ 
+
+INSERT INTO mesas (nomeMesa, descricao, preco) VALUES
+('Mesa Confort', 'Melhor lugar, iluminação e conforto', 150.00),
+('Mesa Fast', 'Perto da cozinha, atendimento rápido', 100.00),
+('Mesa Premium', 'Um pouco de tudo, mais cara', 200.00),
+('Mesa Date', 'Rodízio e perto da adega de vinhos', 250.00);
